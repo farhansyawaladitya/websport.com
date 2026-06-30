@@ -1,0 +1,487 @@
+/* ==========================
+   GOOGLE FONT
+========================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    color:#333;
+}
+
+/* ==========================
+   NAVBAR
+========================== */
+
+.navbar{
+    padding:15px 0;
+}
+
+.navbar-brand{
+    font-size:24px;
+    font-weight:700;
+}
+
+.nav-link{
+    font-size:16px;
+    margin-left:20px;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#4da3ff !important;
+}
+
+/* ==========================
+   HERO
+========================== */
+
+.hero{
+
+    background:linear-gradient(135deg,#0066ff,#00b4ff);
+
+    color:white;
+
+    text-align:center;
+
+    padding:80px 20px;
+
+}
+
+.hero h1{
+
+    font-size:50px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+.hero p{
+
+    font-size:18px;
+
+    margin-bottom:35px;
+
+}
+
+/* ==========================
+   TAG KRITERIA
+========================== */
+
+.kategori{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+}
+
+.kategori span{
+
+    background:white;
+
+    color:#0066ff;
+
+    padding:12px 22px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+}
+
+.kategori span:hover{
+
+    transform:translateY(-5px);
+
+}
+
+/* ==========================
+   CARD
+========================== */
+
+.card{
+
+    border-radius:20px;
+
+    padding:30px;
+
+    border:none;
+
+}
+
+.card h3{
+
+    color:#0066ff;
+
+    font-weight:700;
+
+}
+
+/* ==========================
+   INPUT
+========================== */
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+
+    height:52px;
+
+    font-size:16px;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    box-shadow:0 0 10px rgba(0,102,255,.3);
+
+    border-color:#0066ff;
+
+}
+
+/* ==========================
+   BUTTON
+========================== */
+
+.btn-primary{
+
+    background:#0066ff;
+
+    border:none;
+
+    border-radius:40px;
+
+    padding:15px 45px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-primary:hover{
+
+    background:#0052cc;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.2);
+
+}
+
+/* ==========================
+   HASIL ANALISIS
+========================== */
+
+#result{
+
+    margin-top:30px;
+
+}
+
+.result-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+
+    animation:fade .5s;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+/* ==========================
+   MOBIL
+========================== */
+
+.car-image{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+}
+
+.car-name{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    margin-top:15px;
+
+}
+
+.score{
+
+    font-size:32px;
+
+    color:#0066ff;
+
+    font-weight:700;
+
+}
+
+.rank{
+
+    background:#ff9800;
+
+    color:white;
+
+    display:inline-block;
+
+    padding:8px 20px;
+
+    border-radius:30px;
+
+    margin-top:10px;
+
+    font-weight:600;
+
+}
+
+/* ==========================
+   TABEL
+========================== */
+
+table{
+
+    width:100%;
+
+    margin-top:20px;
+
+}
+
+table tr{
+
+    border-bottom:1px solid #ddd;
+
+}
+
+table td{
+
+    padding:12px;
+
+}
+
+table td:first-child{
+
+    font-weight:600;
+
+}
+
+/* ==========================
+   TOP RANKING
+========================== */
+
+#topCars{
+
+    margin-top:20px;
+
+}
+
+.top-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    margin-bottom:25px;
+
+}
+
+.top-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+
+}
+
+.top-card img{
+
+    width:100%;
+
+    height:200px;
+
+    object-fit:cover;
+
+}
+
+.top-card-body{
+
+    padding:20px;
+
+}
+
+.top-card-body h5{
+
+    font-weight:700;
+
+}
+
+.badge-rank{
+
+    background:#0066ff;
+
+    color:white;
+
+    padding:8px 15px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+}
+
+/* ==========================
+   FOOTER
+========================== */
+
+footer{
+
+    margin-top:80px;
+
+}
+
+footer h5{
+
+    font-weight:700;
+
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:992px){
+
+.hero h1{
+
+font-size:38px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.hero{
+
+padding:60px 20px;
+
+}
+
+.hero h1{
+
+font-size:30px;
+
+}
+
+.hero p{
+
+font-size:15px;
+
+}
+
+.kategori{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.btn-primary{
+
+width:100%;
+
+}
+
+.card{
+
+padding:20px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.navbar-brand{
+
+font-size:18px;
+
+}
+
+.hero h1{
+
+font-size:26px;
+
+}
+
+.score{
+
+font-size:24px;
+
+}
+
+.car-name{
+
+font-size:18px;
+
+}
+
+}
