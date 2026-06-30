@@ -88,295 +88,293 @@ TOP ${car.ranking}
 
 function compareCars(){
 
-function compareCars() {
+const idA = Number(carA.value);
+const idB = Number(carB.value);
 
-    const idA = parseInt(document.getElementById("carA").value);
-    const idB = parseInt(document.getElementById("carB").value);
+if(idA===idB){
 
-    if (!idA || !idB) {
-        alert("Silakan pilih Sport Car A dan Sport Car B");
-        return;
-    }
+alert("Pilih dua mobil yang berbeda.");
 
-    if (idA === idB) {
-        alert("Pilih mobil yang berbeda.");
-        return;
-    }
+return;
 
-    const A = cars.find(car => car.id == idA);
-    const B = cars.find(car => car.id == idB);
+}
 
-    let pemenang = A.score > B.score ? A : B;
-
-    document.getElementById("result").innerHTML = `
+const A = cars.find(c=>c.id===idA);
+const B = cars.find(c=>c.id===idB);
 
 // Menentukan pemenang
-let winner = A.score > B.score ? A : B;
 
-document.getElementById("result").innerHTML = `
+let winner;
+
+if(A.score>B.score){
+
+winner=A;
+
+}else if(B.score>A.score){
+
+winner=B;
+
+}else{
+
+winner=null;
+
+}
+
+// Progress Bar
+
+const persenA = (A.score/44)*100;
+const persenB = (B.score/44)*100;
+
+// ===============================
+
+document.getElementById("result").innerHTML=`
+
+<div class="row">
+
+<div class="col-lg-6">
 
 <div class="result-card">
 
-    <h2 class="text-center mb-4">
-        🏆 HASIL ANALISIS PERBANDINGAN
-    </h2>
+<img
+src="${A.gambar}"
+class="car-image">
 
-    <div class="row">
+<h3 class="car-name">
 
-        <!-- SPORT CAR A -->
-        <div class="col-md-5">
+${A.nama}
 
-            <div class="card shadow p-3">
+</h3>
 
-                <img src="${A.gambar}" class="car-image">
+<p><b>Harga</b><br>${rupiah(A.harga)}</p>
 
-                <h3 class="text-center mt-3">${A.nama}</h3>
+<p><b>Top Speed</b><br>${A.kecepatan} km/jam</p>
 
-                <table class="table">
+<p><b>Horse Power</b><br>${A.horsepower} HP</p>
 
-                    <tr>
-                        <td>💰 Harga</td>
-                        <td>${rupiah(A.harga)}</td>
-                    </tr>
+<p><b>Efisiensi</b><br>${A.efisiensi}/10</p>
 
-                    <tr>
-                        <td>⚡ Kecepatan</td>
-                        <td>${A.kecepatan} km/jam</td>
-                    </tr>
+<p><b>Desain</b><br>${A.desain}/10</p>
 
-                    <tr>
-                        <td>🔥 Horse Power</td>
-                        <td>${A.horsepower} HP</td>
-                    </tr>
+<div class="progress mb-3">
 
-                    <tr>
-                        <td>⛽ Efisiensi</td>
-                        <td>${A.efisiensi}/10</td>
-                    </tr>
+<div
+class="progress-bar bg-primary"
+style="width:${persenA}%">
 
-                    <tr>
-                        <td>🎨 Desain</td>
-                        <td>${A.desain}/10</td>
-                    </tr>
+${A.score}
 
-                    <tr>
-                        <td>⭐ Score</td>
-                        <td>${A.score}</td>
-                    </tr>
+</div>
 
-                    <tr>
-                        <td>🏆 Ranking</td>
-                        <td>${A.ranking}</td>
-                    </tr>
+</div>
 
-                </table>
+<span class="rank">
 
-            </div>
+Ranking ${A.ranking}
 
-        </div>
+</span>
 
-        <!-- VS -->
+</div>
 
-        <div class="col-md-2 d-flex align-items-center justify-content-center">
+</div>
 
-            <h1 style="font-size:60px;color:red;">
-                VS
-            </h1>
+<div class="col-lg-6">
 
-        </div>
+<div class="result-card">
 
-        <!-- SPORT CAR B -->
+<img
+src="${B.gambar}"
+class="car-image">
 
-        <div class="col-md-5">
+<h3 class="car-name">
 
-            <div class="card shadow p-3">
+${B.nama}
 
-                <img src="${B.gambar}" class="car-image">
+</h3>
 
-                <h3 class="text-center mt-3">${B.nama}</h3>
+<p><b>Harga</b><br>${rupiah(B.harga)}</p>
 
-                <table class="table">
+<p><b>Top Speed</b><br>${B.kecepatan} km/jam</p>
 
-                    <tr>
-                        <td>💰 Harga</td>
-                        <td>${rupiah(B.harga)}</td>
-                    </tr>
+<p><b>Horse Power</b><br>${B.horsepower} HP</p>
 
-                    <tr>
-                        <td>⚡ Kecepatan</td>
-                        <td>${B.kecepatan} km/jam</td>
-                    </tr>
+<p><b>Efisiensi</b><br>${B.efisiensi}/10</p>
 
-                    <tr>
-                        <td>🔥 Horse Power</td>
-                        <td>${B.horsepower} HP</td>
-                    </tr>
+<p><b>Desain</b><br>${B.desain}/10</p>
 
-                    <tr>
-                        <td>⛽ Efisiensi</td>
-                        <td>${B.efisiensi}/10</td>
-                    </tr>
+<div class="progress mb-3">
 
-                    <tr>
-                        <td>🎨 Desain</td>
-                        <td>${B.desain}/10</td>
-                    </tr>
+<div
+class="progress-bar bg-success"
+style="width:${persenB}%">
 
-                    <tr>
-                        <td>⭐ Score</td>
-                        <td>${B.score}</td>
-                    </tr>
+${B.score}
 
-                    <tr>
-                        <td>🏆 Ranking</td>
-                        <td>${B.ranking}</td>
-                    </tr>
+</div>
 
-                </table>
+</div>
 
-            </div>
+<span class="rank">
 
-        </div>
+Ranking ${B.ranking}
 
-    </div>
+</span>
 
-    <hr class="my-4">
+</div>
 
-    <div class="text-center">
+</div>
 
-        <h2 class="text-success">
+</div>
 
-            🏅 Pemenang Analisis
+<br>
 
-        </h2>
+<div class="result-card text-center">
 
-        <img src="${winner.gambar}"
-             class="car-image"
-             style="width:300px;height:180px;">
+<h2>
 
-        <h3 class="mt-3">
+🏆 HASIL ANALISIS
 
-            ${winner.nama}
+</h2>
 
-        </h3>
+${
+winner
+?
 
-        <h4 class="text-primary">
+`
 
-            Score ORESTE : ${winner.score}
+<h1 style="color:#0066ff">
 
-        </h4>
+${winner.nama}
 
-        <h5>
+</h1>
 
-            Ranking : ${winner.ranking}
+<p>
 
-        </h5>
+Mobil ini memperoleh
 
-    </div>
+<b>${winner.score}</b>
 
-    <hr>
+poin ORESTE dan berada pada
 
-    <h3 class="mb-3">
+<b>Ranking ${winner.ranking}</b>
 
-        📊 Tabel Perbandingan
+</p>
 
-    </h3>
+`
 
-    <table class="table table-bordered table-striped">
+:
 
-        <thead class="table-primary">
+`
 
-            <tr>
+<h2 style="color:green">
 
-                <th>Kriteria</th>
+Kedua Mobil Memiliki Nilai Yang Sama
 
-                <th>${A.nama}</th>
+</h2>
 
-                <th>${B.nama}</th>
+`
 
-            </tr>
+}
 
-        </thead>
+</div>
 
-        <tbody>
+<br>
 
-            <tr>
+<div class="result-card">
 
-                <td>Harga</td>
+<h3>
 
-                <td>${rupiah(A.harga)}</td>
+Perbandingan Nilai
 
-                <td>${rupiah(B.harga)}</td>
+</h3>
 
-            </tr>
+<table class="table table-striped">
 
-            <tr>
+<tr>
 
-                <td>Kecepatan</td>
+<th>Kriteria</th>
 
-                <td>${A.kecepatan}</td>
+<th>${A.nama}</th>
 
-                <td>${B.kecepatan}</td>
+<th>${B.nama}</th>
 
-            </tr>
+</tr>
 
-            <tr>
+<tr>
 
-                <td>Horse Power</td>
+<td>Harga</td>
 
-                <td>${A.horsepower}</td>
+<td>${rupiah(A.harga)}</td>
 
-                <td>${B.horsepower}</td>
+<td>${rupiah(B.harga)}</td>
 
-            </tr>
+</tr>
 
-            <tr>
+<tr>
 
-                <td>Efisiensi</td>
+<td>Top Speed</td>
 
-                <td>${A.efisiensi}</td>
+<td>${A.kecepatan} km/jam</td>
 
-                <td>${B.efisiensi}</td>
+<td>${B.kecepatan} km/jam</td>
 
-            </tr>
+</tr>
 
-            <tr>
+<tr>
 
-                <td>Desain</td>
+<td>Horse Power</td>
 
-                <td>${A.desain}</td>
+<td>${A.horsepower} HP</td>
 
-                <td>${B.desain}</td>
+<td>${B.horsepower} HP</td>
 
-            </tr>
+</tr>
 
-            <tr>
+<tr>
 
-                <td>Score ORESTE</td>
+<td>Efisiensi</td>
 
-                <td><b>${A.score}</b></td>
+<td>${A.efisiensi}</td>
 
-                <td><b>${B.score}</b></td>
+<td>${B.efisiensi}</td>
 
-            </tr>
+</tr>
 
-            <tr>
+<tr>
 
-                <td>Ranking</td>
+<td>Desain</td>
 
-                <td>${A.ranking}</td>
+<td>${A.desain}</td>
 
-                <td>${B.ranking}</td>
+<td>${B.desain}</td>
 
-            </tr>
+</tr>
 
-        </tbody>
+<tr>
 
-    </table>
+<td>Score ORESTE</td>
+
+<td><b>${A.score}</b></td>
+
+<td><b>${B.score}</b></td>
+
+</tr>
+
+<tr>
+
+<td>Ranking</td>
+
+<td>${A.ranking}</td>
+
+<td>${B.ranking}</td>
+
+</tr>
+
+</table>
 
 </div>
 
 `;
+
 }
 
 // ===============================
