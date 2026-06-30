@@ -1,52 +1,85 @@
-const rankingList = document.getElementById("rankingList");
+const ranking = [...cars].sort((a,b)=>a.ranking-b.ranking);
 
-// Urutkan berdasarkan ranking
-const ranking = [...cars].sort((a, b) => a.ranking - b.ranking);
+// PODIUM
 
-ranking.forEach(car => {
+document.getElementById("podium1").innerHTML = `
+<div class="podium juara1">
 
-let medal = "";
+<img src="${ranking[0].gambar}">
 
-if (car.ranking == 1) {
+<h3>🥇</h3>
 
-medal = "🥇";
+<h4>${ranking[0].nama}</h4>
 
-} else if (car.ranking == 2) {
+<p>Score ${ranking[0].score}</p>
 
-medal = "🥈";
+<p>Ranking 1</p>
 
-} else if (car.ranking == 3) {
+</div>
+`;
 
-medal = "🥉";
+document.getElementById("podium2").innerHTML = `
+<div class="podium juara2">
 
-} else {
+<img src="${ranking[1].gambar}">
 
-medal = "#" + car.ranking;
+<h3>🥈</h3>
 
-}
+<h4>${ranking[1].nama}</h4>
 
-rankingList.innerHTML += `
+<p>Score ${ranking[1].score}</p>
 
-<div class="col-lg-4 col-md-6 mb-4">
+<p>Ranking 2</p>
+
+</div>
+`;
+
+document.getElementById("podium3").innerHTML = `
+<div class="podium juara3">
+
+<img src="${ranking[2].gambar}">
+
+<h3>🥉</h3>
+
+<h4>${ranking[2].nama}</h4>
+
+<p>Score ${ranking[2].score}</p>
+
+<p>Ranking 3</p>
+
+</div>
+`;
+
+const list = document.getElementById("rankingList");
+
+ranking.forEach(car=>{
+
+list.innerHTML +=`
+
+<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
 
 <div class="ranking-card">
 
-<img src="${car.gambar}" class="ranking-img">
+<img src="${car.gambar}">
 
 <div class="ranking-body">
 
-<h3>${medal}</h3>
+<h5>
 
-<h4>${car.nama}</h4>
+#${car.ranking}
 
-<hr>
+</h5>
 
-<p><b>Harga</b><br>
-${new Intl.NumberFormat('id-ID',{
-style:'currency',
-currency:'IDR',
-maximumFractionDigits:0
-}).format(car.harga)}
+<h4>
+
+${car.nama}
+
+</h4>
+
+<p>
+
+⭐ Score : ${car.score}
+
 </p>
 
 <p>
@@ -60,30 +93,6 @@ maximumFractionDigits:0
 🔥 ${car.horsepower} HP
 
 </p>
-
-<p>
-
-⛽ Efisiensi : ${car.efisiensi}
-
-</p>
-
-<p>
-
-🎨 Desain : ${car.desain}
-
-</p>
-
-<h3 class="text-primary">
-
-Score : ${car.score}
-
-</h3>
-
-<span class="badge bg-success">
-
-Ranking ${car.ranking}
-
-</span>
 
 </div>
 
