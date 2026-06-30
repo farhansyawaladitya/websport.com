@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking Mobil Sport - SportCar IQ</title>
+    <link rel="stylesheet" href="tes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tambahan styling khusus untuk halaman ranking */
+        .ranking-container {
+            max-width: 1000px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
+        }
+
+        .ranking-container h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .ranking-container .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .ranking-table-wrapper {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 20px;
+            overflow-x: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .ranking-table thead th {
+            background: #16213e;
+            color: #e94560;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #e94560;
+            white-space: nowrap;
+        }
+
+        .ranking-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #2a2a4a;
+            color: #e0e0e0;
+        }
+
+        .ranking-table tbody tr:hover {
+            background: #2a2a4a;
+            transition: 0.2s;
+        }
+
+        .ranking-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .rank-number {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #e94560;
+            text-align: center;
+        }
+
+        .rank-1 { background: rgba(233, 69, 96, 0.15); }
+        .rank-2 { background: rgba(233, 69, 96, 0.10); }
+        .rank-3 { background: rgba(233, 69, 96, 0.06); }
+
+        .medal {
+            font-size: 1.3rem;
+            margin-right: 4px;
+        }
+
+        .nilai-oreste {
+            font-weight: 700;
+            color: #f5c842;
+            text-align: center;
+        }
+
+        .detail-bars {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .detail-bar {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        .bar-track {
+            width: 50px;
+            height: 6px;
+            background: #2a2a4a;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.6s ease;
+        }
+
+        .bar-fill.harga { background: #4ecdc4; }
+        .bar-fill.kecepatan { background: #ff6b6b; }
+        .bar-fill.hp { background: #ffd93d; }
+        .bar-fill.efisiensi { background: #6bcb77; }
+        .bar-fill.desain { background: #a29bfe; }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #e94560;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .ranking-table {
+                font-size: 0.8rem;
+            }
+            .ranking-table td, .ranking-table th {
+                padding: 8px 10px;
+            }
+            .detail-bar .bar-track {
+                width: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== NAVBAR (sama seperti index.html) ====== -->
+    <nav>
+        <div class="logo">
+            🏎 <span>SportCar IQ</span>
+        </div>
+        <ul>
+            <li><a href="index.html">Analisis Mobil</a></li>
+            <li class="active"><a href="ranking.html">Ranking</a></li>
+        </ul>
+    </nav>
+
+    <!-- ====== KONTEN RANKING ====== -->
+    <section class="ranking-container">
+        <h1>🏆 Ranking Mobil Sport</h1>
+        <p class="subtitle">Berdasarkan metode <strong>ORESTE</strong> – semakin tinggi nilai, semakin baik</p>
+
+        <div class="ranking-table-wrapper">
+            <table class="ranking-table" id="rankingTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Mobil</th>
+                        <th>Nilai ORESTE</th>
+                        <th>Detail Penilaian</th>
+                    </tr>
+                </thead>
+                <tbody id="rankingBody">
+                    <!-- Akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <a href="index.html" class="back-link">← Kembali ke Analisis</a>
+    </section>
+
+    <!-- ====== SCRIPT ====== -->
+    <script src="data.js"></script>
+    <script>
+        (function() {
+            // Urutkan berdasarkan nilai ORESTE (tertinggi ke terendah)
+            const sorted = [...mobilData].sort((a, b) => b.nilaiOreste - a.nilaiOreste);
+
+            const tbody = document.getElementById('rankingBody');
+
+            sorted.forEach((mobil, index) => {
+                const rank = index + 1;
+
+                // Tentukan class untuk podium (top 3)
+                let rowClass = '';
+                let medal = '';
+                if (rank === 1) { rowClass = 'rank-1'; medal = '🥇 '; }
+                else if (rank === 2) { rowClass = 'rank-2'; medal = '🥈 '; }
+                else if (rank === 3) { rowClass = 'rank-3'; medal = '🥉 '; }
+
+                const tr = document.createElement('tr');
+                tr.className = rowClass;
+
+                // Kolom 1: Rank
+                const tdRank = document.createElement('td');
+                tdRank.className = 'rank-number';
+                tdRank.textContent = rank;
+                tr.appendChild(tdRank);
+
+                // Kolom 2: Nama Mobil (dengan medal jika top 3)
+                const tdNama = document.createElement('td');
+                tdNama.innerHTML = `<strong>${medal}${mobil.nama}</strong>`;
+                tr.appendChild(tdNama);
+
+                // Kolom 3: Nilai ORESTE
+                const tdNilai = document.createElement('td');
+                tdNilai.className = 'nilai-oreste';
+                tdNilai.textContent = mobil.nilaiOreste;
+                tr.appendChild(tdNilai);
+
+                // Kolom 4: Detail bars (visualisasi 5 kriteria)
+                const tdDetail = document.createElement('td');
+                tdDetail.className = 'detail-bars';
+
+                const kriteria = [
+                    { label: 'Harga', key: 'harga', cls: 'harga' },
+                    { label: 'Kecepatan', key: 'kecepatan', cls: 'kecepatan' },
+                    { label: 'HP', key: 'hp', cls: 'hp' },
+                    { label: 'Efisiensi', key: 'efisiensi', cls: 'efisiensi' },
+                    { label: 'Desain', key: 'desain', cls: 'desain' }
+                ];
+
+                kriteria.forEach(k => {
+                    const val = mobil[k.key] || 0;
+                    const div = document.createElement('div');
+                    div.className = 'detail-bar';
+                    div.innerHTML = `
+                        <span>${k.label}</span>
+                        <div class="bar-track">
+                            <div class="bar-fill ${k.cls}" style="width: ${val}%;"></div>
+                        </div>
+                        <span>${val}</span>
+                    `;
+                    tdDetail.appendChild(div);
+                });
+
+                tr.appendChild(tdDetail);
+                tbody.appendChild(tr);
+            });
+        })();
+    </script>
+
+</body>
+</html>
