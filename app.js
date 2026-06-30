@@ -387,3 +387,56 @@ carA.selectedIndex=0;
 carB.selectedIndex=1;
 
 };
+// ==============================
+// SPORT CAR A
+// ==============================
+
+const sportCarA = [
+    { id: 1, nama: "Mercedes-AMG GT" },
+    { id: 2, nama: "Audi R8" },
+    { id: 3, nama: "Toyota Supra" },
+    { id: 4, nama: "Jaguar F-Type" },
+    { id: 5, nama: "Lexus LC500" },
+    { id: 6, nama: "Maserati MC20" },
+    { id: 7, nama: "Lotus Emira" },
+    { id: 8, nama: "Honda NSX" },
+    { id: 9, nama: "Bugatti Chiron" },
+    { id: 10, nama: "Ferrari 488 GTB" },
+    { id: 11, nama: "Chevrolet Corvette C8" },
+    { id: 12, nama: "Aston Martin Vantage" },
+    { id: 13, nama: "Alpine A110" },
+    { id: 14, nama: "BMW M4 Competition" },
+    { id: 15, nama: "Ford Mustang GT" },
+    { id: 16, nama: "Dodge Challenger SRT Hellcat" },
+    { id: 17, nama: "Lamborghini Huracán EVO" },
+    { id: 18, nama: "McLaren 720S" },
+    { id: 19, nama: "Porsche 911 Turbo S" },
+    { id: 20, nama: "Nissan GT-R R35" }
+];
+
+// ==============================
+// SPORT CAR B
+// ==============================
+
+const sportCarB = [
+    { id: 1, nama: "Mercedes-AMG GT" },
+    { id: 2, nama: "Audi R8" },
+    { id: 3, nama: "Toyota Supra" },
+    { id: 4, nama: "Jaguar F-Type" },
+    { id: 5, nama: "Lexus LC500" },
+    { id: 6, nama: "Maserati MC20" },
+    { id: 7, nama: "Lotus Emira" },
+    { id: 8, nama: "Honda NSX" },
+    { id: 9, nama: "Bugatti Chiron" },
+    { id: 10, nama: "Ferrari 488 GTB" },
+    { id: 11, nama: "Chevrolet Corvette C8" },
+    { id: 12, nama: "Aston Martin Vantage" },
+    { id: 13, nama: "Alpine A110" },
+    { id: 14, nama: "BMW M4 Competition" },
+    { id: 15, nama: "Ford Mustang GT" },
+    { id: 16, nama: "Dodge Challenger SRT Hellcat" },
+    { id: 17, nama: "Lamborghini Huracán EVO" },
+    { id: 18, nama: "McLaren 720S" },
+    { id: 19, nama: "Porsche 911 Turbo S" },
+    { id: 20, nama: "Nissan GT-R R35" }
+];
