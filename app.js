@@ -129,253 +129,117 @@ const persenB = (B.score/44)*100;
 
 document.getElementById("result").innerHTML=`
 
-<div class="row">
+const winner = A.score >= B.score ? A : B;
 
-<div class="col-lg-6">
-
-<div class="result-card">
-
-<img
-src="${A.gambar}"
-class="car-image">
-
-<h3 class="car-name">
-
-${A.nama}
-
-</h3>
-
-<p><b>Harga</b><br>${rupiah(A.harga)}</p>
-
-<p><b>Top Speed</b><br>${A.kecepatan} km/jam</p>
-
-<p><b>Horse Power</b><br>${A.horsepower} HP</p>
-
-<p><b>Efisiensi</b><br>${A.efisiensi}/10</p>
-
-<p><b>Desain</b><br>${A.desain}/10</p>
-
-<div class="progress mb-3">
-
-<div
-class="progress-bar bg-primary"
-style="width:${persenA}%">
-
-${A.score}
-
-</div>
-
-</div>
-
-<span class="rank">
-
-Ranking ${A.ranking}
-
-</span>
-
-</div>
-
-</div>
-
-<div class="col-lg-6">
+document.getElementById("result").innerHTML = `
 
 <div class="result-card">
 
-<img
-src="${B.gambar}"
-class="car-image">
+    <h2 class="text-center text-primary mb-4">
+        🏆 HASIL ANALISIS SPORT CAR
+    </h2>
 
-<h3 class="car-name">
+    <div class="row">
 
-${B.nama}
+        <div class="col-md-5">
 
-</h3>
+            <div class="card shadow border-0 p-3">
 
-<p><b>Harga</b><br>${rupiah(B.harga)}</p>
+                <img src="${A.gambar}" class="car-image">
 
-<p><b>Top Speed</b><br>${B.kecepatan} km/jam</p>
+                <h3 class="text-center mt-3">${A.nama}</h3>
 
-<p><b>Horse Power</b><br>${B.horsepower} HP</p>
+                <table class="table">
 
-<p><b>Efisiensi</b><br>${B.efisiensi}/10</p>
+                    <tr><td>💰 Harga</td><td>${rupiah(A.harga)}</td></tr>
 
-<p><b>Desain</b><br>${B.desain}/10</p>
+                    <tr><td>⚡ Kecepatan</td><td>${A.kecepatan} km/jam</td></tr>
 
-<div class="progress mb-3">
+                    <tr><td>🔥 Horse Power</td><td>${A.horsepower} HP</td></tr>
 
-<div
-class="progress-bar bg-success"
-style="width:${persenB}%">
+                    <tr><td>⛽ Efisiensi</td><td>${A.efisiensi}/10</td></tr>
 
-${B.score}
+                    <tr><td>🎨 Desain</td><td>${A.desain}/10</td></tr>
 
-</div>
+                    <tr><td>⭐ Score</td><td>${A.score}</td></tr>
 
-</div>
+                    <tr><td>🏅 Ranking</td><td>${A.ranking}</td></tr>
 
-<span class="rank">
+                </table>
 
-Ranking ${B.ranking}
+            </div>
 
-</span>
+        </div>
 
-</div>
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
 
-</div>
+            <div class="vs-text">
+                VS
+            </div>
 
-</div>
+        </div>
 
-<br>
+        <div class="col-md-5">
 
-<div class="result-card text-center">
+            <div class="card shadow border-0 p-3">
 
-<h2>
+                <img src="${B.gambar}" class="car-image">
 
-🏆 HASIL ANALISIS
+                <h3 class="text-center mt-3">${B.nama}</h3>
 
-</h2>
+                <table class="table">
 
-${
-winner
-?
+                    <tr><td>💰 Harga</td><td>${rupiah(B.harga)}</td></tr>
 
-`
+                    <tr><td>⚡ Kecepatan</td><td>${B.kecepatan} km/jam</td></tr>
 
-<h1 style="color:#0066ff">
+                    <tr><td>🔥 Horse Power</td><td>${B.horsepower} HP</td></tr>
 
-${winner.nama}
+                    <tr><td>⛽ Efisiensi</td><td>${B.efisiensi}/10</td></tr>
 
-</h1>
+                    <tr><td>🎨 Desain</td><td>${B.desain}/10</td></tr>
 
-<p>
+                    <tr><td>⭐ Score</td><td>${B.score}</td></tr>
 
-Mobil ini memperoleh
+                    <tr><td>🏅 Ranking</td><td>${B.ranking}</td></tr>
 
-<b>${winner.score}</b>
+                </table>
 
-poin ORESTE dan berada pada
+            </div>
 
-<b>Ranking ${winner.ranking}</b>
+        </div>
 
-</p>
+    </div>
 
-`
+    <div class="winner-card mt-5">
 
-:
+        <h2>🥇 Pemenang Analisis</h2>
 
-`
+        <img src="${winner.gambar}" class="winner-img">
 
-<h2 style="color:green">
+        <h3>${winner.nama}</h3>
 
-Kedua Mobil Memiliki Nilai Yang Sama
+        <h1>${winner.score}</h1>
 
-</h2>
+        <span class="winner-badge">
 
-`
+            Ranking #${winner.ranking}
 
-}
+        </span>
 
-</div>
+        <p class="mt-3">
 
-<br>
+            Berdasarkan metode ORESTE, <b>${winner.nama}</b>
+            memperoleh nilai tertinggi sehingga direkomendasikan
+            sebagai pilihan terbaik.
 
-<div class="result-card">
+        </p>
 
-<h3>
-
-Perbandingan Nilai
-
-</h3>
-
-<table class="table table-striped">
-
-<tr>
-
-<th>Kriteria</th>
-
-<th>${A.nama}</th>
-
-<th>${B.nama}</th>
-
-</tr>
-
-<tr>
-
-<td>Harga</td>
-
-<td>${rupiah(A.harga)}</td>
-
-<td>${rupiah(B.harga)}</td>
-
-</tr>
-
-<tr>
-
-<td>Top Speed</td>
-
-<td>${A.kecepatan} km/jam</td>
-
-<td>${B.kecepatan} km/jam</td>
-
-</tr>
-
-<tr>
-
-<td>Horse Power</td>
-
-<td>${A.horsepower} HP</td>
-
-<td>${B.horsepower} HP</td>
-
-</tr>
-
-<tr>
-
-<td>Efisiensi</td>
-
-<td>${A.efisiensi}</td>
-
-<td>${B.efisiensi}</td>
-
-</tr>
-
-<tr>
-
-<td>Desain</td>
-
-<td>${A.desain}</td>
-
-<td>${B.desain}</td>
-
-</tr>
-
-<tr>
-
-<td>Score ORESTE</td>
-
-<td><b>${A.score}</b></td>
-
-<td><b>${B.score}</b></td>
-
-</tr>
-
-<tr>
-
-<td>Ranking</td>
-
-<td>${A.ranking}</td>
-
-<td>${B.ranking}</td>
-
-</tr>
-
-</table>
+    </div>
 
 </div>
 
 `;
-
-}
 
 // ===============================
 // DEFAULT
