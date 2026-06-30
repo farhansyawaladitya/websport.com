@@ -3,305 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Analisis Sport Cars - ORESTE</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Analisa Perbandingan Sport Cars</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- ================= NAVBAR ================= -->
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-
 <div class="container">
 
-<a class="navbar-brand fw-bold" href="#">
-<i class="fa-solid fa-car-side"></i>
-Sport Cars ORESTE
-</a>
+    <h1>Analisa Perbandingan Sport Cars</h1>
 
-<button class="navbar-toggler"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#menu">
+    <p class="subtitle">
+        Masukkan tujuan penggunaan mobil sport, lalu pilih dua mobil
+        untuk dibandingkan menggunakan metode ORESTE.
+    </p>
 
-<span class="navbar-toggler-icon"></span>
+    <div class="card">
 
-</button>
+        <label>🏁 TUJUAN PEMILIHAN SPORT CAR</label>
 
-<div class="collapse navbar-collapse" id="menu">
+        <input
+            type="text"
+            id="tujuan"
+            placeholder="Contoh : Drag Race, Daily, Track Day, Koleksi, dll">
 
-<ul class="navbar-nav ms-auto">
+        <div class="tag-list">
 
-<li class="nav-item">
-<a class="nav-link active" href="index.html">
-Analisis
-</a>
-</li>
+            <span>Kecepatan</span>
+            <span>Akselerasi</span>
+            <span>Handling</span>
+            <span>Kenyamanan</span>
+            <span>Harga</span>
+            <span>Efisiensi</span>
+            <span>Teknologi</span>
 
-<li class="nav-item">
-<a class="nav-link" href="detail.html">
-Detail Produk
-</a>
-</li>
+        </div>
 
-<li class="nav-item">
-<a class="nav-link" href="ranking.html">
-Ranking
-</a>
-</li>
+        <div class="compare">
 
-</ul>
+            <div>
 
-</div>
+                <label>SPORT CAR A</label>
 
-</div>
+                <select id="mobilA">
+                    <option value="">-- Pilih Sport Car --</option>
+                </select>
 
-</nav>
+            </div>
 
-<!-- ================= HERO ================= -->
+            <div class="vs">
+                VS
+            </div>
 
-<section class="hero">
+            <div>
 
-<div class="container">
+                <label>SPORT CAR B</label>
 
-<h1>
-Analisis Perbandingan Sport Cars
-</h1>
+                <select id="mobilB">
+                    <option value="">-- Pilih Sport Car --</option>
+                </select>
 
-<p>
+            </div>
 
-Bandingkan dua mobil sport menggunakan
-metode ORESTE berdasarkan:
+        </div>
 
-</p>
+        <button id="btnAnalisa">
+            Analisa Sekarang →
+        </button>
 
-<div class="kategori">
-
-<span>💰 Harga</span>
-
-<span>⚡ Kecepatan</span>
-
-<span>🔥 Horse Power</span>
-
-<span>⛽ Efisiensi</span>
-
-<span>🎨 Desain</span>
+    </div>
 
 </div>
-
-</div>
-
-</section>
-
-<!-- ================= FORM ================= -->
-
-<section class="container mt-5">
-
-<div class="card shadow-lg border-0 p-4">
-
-<h3 class="mb-4">
-
-<i class="fa-solid fa-chart-column"></i>
-
-Analisis Sport Cars
-
-</h3>
-
-<label class="fw-bold">
-
-Tujuan Analisis
-
-</label>
-
-<input
-type="text"
-class="form-control mb-4"
-placeholder="Contoh : Mencari mobil sport tercepat">
-
-<div class="row">
-
-<div class="col-md-5">
-
-<label class="fw-bold">
-
-Sport Car A
-
-</label>
-
-<select
-id="carA"
-class="form-select">
-
-</select>
-
-</div>
-
-<div class="col-md-2 text-center">
-
-<h2 class="mt-4 text-danger">
-
-VS
-
-</h2>
-
-</div>
-
-<div class="col-md-5">
-
-<label class="fw-bold">
-
-Sport Car B
-
-</label>
-
-<select
-id="carB"
-class="form-select">
-
-</select>
-
-</div>
-
-</div>
-
-<div class="text-center mt-4">
-
-<button
-class="btn btn-primary btn-lg"
-onclick="compareCars()">
-
-<i class="fa-solid fa-magnifying-glass-chart"></i>
-
-Analisis Sekarang
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= HASIL ================= -->
-
-<section class="container mt-5 mb-5">
-
-<div id="result">
-
-<div class="alert alert-info text-center">
-
-Silakan pilih dua mobil sport kemudian klik
-<b>Analisis Sekarang</b>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= TOP RANKING ================= -->
-
-<section class="container mb-5">
-
-<h2 class="mb-4">
-
-🏆 Top 5 Ranking Sport Cars
-
-</h2>
-
-<div class="row" id="topCars">
-
-</div>
-
-</section>
-
-<!-- ================= FOOTER ================= -->
-
-<footer class="bg-dark text-white text-center p-4">
-
-<h5>
-
-Sport Cars ORESTE
-
-</h5>
-
-<p>
-
-Analisis Perbandingan Mobil Sport
-Menggunakan Metode ORESTE
-
-</p>
-
-<p>
-
-© 2026
-
-</p>
-
-</footer>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
-<select id="carA" class="form-select">
-
-<option value="1">Mercedes-AMG GT</option>
-<option value="2">Audi R8</option>
-<option value="3">Toyota Supra</option>
-<option value="4">Jaguar F-Type</option>
-<option value="5">Lexus LC500</option>
-<option value="6">Maserati MC20</option>
-<option value="7">Lotus Emira</option>
-<option value="8">Honda NSX</option>
-<option value="9">Bugatti Chiron</option>
-<option value="10">Ferrari 488 GTB</option>
-<option value="11">Chevrolet Corvette C8</option>
-<option value="12">Aston Martin Vantage</option>
-<option value="13">Alpine A110</option>
-<option value="14">BMW M4 Competition</option>
-<option value="15">Ford Mustang GT</option>
-<option value="16">Dodge Challenger SRT Hellcat</option>
-<option value="17">Lamborghini Huracán EVO</option>
-<option value="18">McLaren 720S</option>
-<option value="19">Porsche 911 Turbo S</option>
-<option value="20">Nissan GT-R R35</option>
-
-</select>
-<select id="carB" class="form-select">
-
-<option value="1">Mercedes-AMG GT</option>
-<option value="2" selected>Audi R8</option>
-<option value="3">Toyota Supra</option>
-<option value="4">Jaguar F-Type</option>
-<option value="5">Lexus LC500</option>
-<option value="6">Maserati MC20</option>
-<option value="7">Lotus Emira</option>
-<option value="8">Honda NSX</option>
-<option value="9">Bugatti Chiron</option>
-<option value="10">Ferrari 488 GTB</option>
-<option value="11">Chevrolet Corvette C8</option>
-<option value="12">Aston Martin Vantage</option>
-<option value="13">Alpine A110</option>
-<option value="14">BMW M4 Competition</option>
-<option value="15">Ford Mustang GT</option>
-<option value="16">Dodge Challenger SRT Hellcat</option>
-<option value="17">Lamborghini Huracán EVO</option>
-<option value="18">McLaren 720S</option>
-<option value="19">Porsche 911 Turbo S</option>
-<option value="20">Nissan GT-R R35</option>
-
-</select>
