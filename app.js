@@ -88,14 +88,207 @@ TOP ${car.ranking}
 
 function compareCars(){
 
-const idA = Number(carA.value);
-const idB = Number(carB.value);
+function compareCars() {
 
-if(idA===idB){
+    const idA = parseInt(document.getElementById("carA").value);
+    const idB = parseInt(document.getElementById("carB").value);
 
-alert("Pilih dua mobil yang berbeda.");
+    if (!idA || !idB) {
+        alert("Silakan pilih Sport Car A dan Sport Car B");
+        return;
+    }
 
-return;
+    if (idA === idB) {
+        alert("Pilih mobil yang berbeda.");
+        return;
+    }
+
+    const A = cars.find(car => car.id == idA);
+    const B = cars.find(car => car.id == idB);
+
+    let pemenang = A.score > B.score ? A : B;
+
+    document.getElementById("result").innerHTML = `
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="result-card">
+
+<img src="${A.gambar}" class="car-image">
+
+<h3 class="car-name">${A.nama}</h3>
+
+<p><b>Harga</b> : ${rupiah(A.harga)}</p>
+
+<p><b>Kecepatan</b> : ${A.kecepatan} km/jam</p>
+
+<p><b>Horse Power</b> : ${A.horsepower} HP</p>
+
+<p><b>Efisiensi</b> : ${A.efisiensi}/10</p>
+
+<p><b>Desain</b> : ${A.desain}/10</p>
+
+<h4 class="text-primary">
+Score ORESTE : ${A.score}
+</h4>
+
+<span class="rank">
+Ranking ${A.ranking}
+</span>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="result-card">
+
+<img src="${B.gambar}" class="car-image">
+
+<h3 class="car-name">${B.nama}</h3>
+
+<p><b>Harga</b> : ${rupiah(B.harga)}</p>
+
+<p><b>Kecepatan</b> : ${B.kecepatan} km/jam</p>
+
+<p><b>Horse Power</b> : ${B.horsepower} HP</p>
+
+<p><b>Efisiensi</b> : ${B.efisiensi}/10</p>
+
+<p><b>Desain</b> : ${B.desain}/10</p>
+
+<h4 class="text-success">
+Score ORESTE : ${B.score}
+</h4>
+
+<span class="rank">
+Ranking ${B.ranking}
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="result-card mt-4">
+
+<h2 class="text-center text-primary">
+
+🏆 HASIL ANALISIS
+
+</h2>
+
+<h3 class="text-center">
+
+${pemenang.nama}
+
+</h3>
+
+<p class="text-center">
+
+Mobil ini memiliki nilai ORESTE tertinggi yaitu
+<b>${pemenang.score}</b>
+
+dengan ranking
+
+<b>${pemenang.ranking}</b>
+
+</p>
+
+<table class="table table-bordered">
+
+<tr>
+
+<th>Kriteria</th>
+
+<th>${A.nama}</th>
+
+<th>${B.nama}</th>
+
+</tr>
+
+<tr>
+
+<td>Harga</td>
+
+<td>${rupiah(A.harga)}</td>
+
+<td>${rupiah(B.harga)}</td>
+
+</tr>
+
+<tr>
+
+<td>Kecepatan</td>
+
+<td>${A.kecepatan} km/jam</td>
+
+<td>${B.kecepatan} km/jam</td>
+
+</tr>
+
+<tr>
+
+<td>Horse Power</td>
+
+<td>${A.horsepower}</td>
+
+<td>${B.horsepower}</td>
+
+</tr>
+
+<tr>
+
+<td>Efisiensi</td>
+
+<td>${A.efisiensi}</td>
+
+<td>${B.efisiensi}</td>
+
+</tr>
+
+<tr>
+
+<td>Desain</td>
+
+<td>${A.desain}</td>
+
+<td>${B.desain}</td>
+
+</tr>
+
+<tr>
+
+<td>Score ORESTE</td>
+
+<td>${A.score}</td>
+
+<td>${B.score}</td>
+
+</tr>
+
+<tr>
+
+<td>Ranking</td>
+
+<td>${A.ranking}</td>
+
+<td>${B.ranking}</td>
+
+</tr>
+
+</table>
+
+</div>
+
+`;
+
+}
 
 }
 
