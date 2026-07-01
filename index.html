@@ -4,187 +4,399 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SportCar IQ</title>
-
-<link rel="stylesheet" href="tes.css">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0C10;
+    --panel:#12151B;
+    --panel-alt:#171B22;
+    --border:#232833;
+    --text:#EDEFF3;
+    --muted:#8890A0;
+    --red:#FF3859;
+    --cyan:#21D4FD;
+    --gold:#FFD34E;
+    --silver:#C9CDD6;
+    --bronze:#D98A54;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;}
+  ::selection{background:var(--red);color:#fff;}
 
+  /* ---------- Top nav ---------- */
+  header{
+    position:sticky;top:0;z-index:20;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;background:rgba(10,12,16,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:22px;letter-spacing:.5px;display:flex;align-items:center;gap:8px;}
+  .logo span{color:var(--red);}
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+  nav{display:flex;gap:6px;background:var(--panel);padding:4px;border-radius:10px;border:1px solid var(--border);}
+  .navbtn{
+    font-family:'Rajdhani',sans-serif;font-weight:600;font-size:15px;letter-spacing:.3px;
+    background:transparent;border:none;color:var(--muted);padding:9px 18px;border-radius:7px;
+    cursor:pointer;transition:.2s;
+  }
+  .navbtn.active{background:var(--red);color:#fff;}
+  .navbtn:not(.active):hover{color:var(--text);}
+
+  main{max-width:1080px;margin:0 auto;padding:40px 24px 80px;}
+  .view{display:none;}
+  .view.active{display:block;animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:38px;line-height:1.1;margin:0 0 8px;}
+  .lede{color:var(--muted);font-size:15px;max-width:640px;margin:0 0 32px;}
+
+  /* ---------- Analisis view ---------- */
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;}
+  label.field-label{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;color:var(--muted);letter-spacing:.4px;text-transform:uppercase;display:block;margin-bottom:10px;}
+  textarea#kebutuhan{
+    width:100%;background:var(--panel-alt);border:1px solid var(--border);border-radius:10px;
+    color:var(--text);font-family:'Inter',sans-serif;font-size:14px;padding:14px;resize:vertical;min-height:52px;
+  }
+  textarea#kebutuhan:focus{outline:none;border-color:var(--cyan);}
+  .tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .tag{
+    font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14.5px;
+    background:var(--panel-alt);border:1px solid var(--border);color:var(--muted);
+    padding:9px 16px;border-radius:999px;cursor:pointer;transition:.15s;user-select:none;
+  }
+  .tag:hover{border-color:var(--cyan);color:var(--text);}
+  .tag.on{background:var(--cyan);border-color:var(--cyan);color:#03181c;}
+
+  .compare-row{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-top:26px;}
+  select.carsel{
+    width:100%;background:var(--panel-alt);border:1px solid var(--border);color:var(--text);
+    font-family:'Inter',sans-serif;font-size:14px;padding:12px;border-radius:10px;
+  }
+  .vs{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--red);font-size:18px;}
+
+  .analisis-btn{
+    margin-top:22px;width:100%;padding:14px;border:none;border-radius:10px;cursor:pointer;
+    font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;letter-spacing:.5px;
+    background:linear-gradient(90deg,var(--red),#ff6b8a);color:#fff;transition:.2s;
+  }
+  .analisis-btn:hover{filter:brightness(1.08);}
+
+  #result{margin-top:28px;display:none;}
+  .result-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .badge-win{font-family:'Rajdhani',sans-serif;font-weight:700;background:var(--gold);color:#231a00;padding:4px 12px;border-radius:6px;font-size:13px;letter-spacing:.4px;}
+  .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .cmp-card{background:var(--panel-alt);border:1px solid var(--border);border-radius:12px;padding:18px;}
+  .cmp-card.winner{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset;}
+  .cmp-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:19px;}
+  .cmp-sub{color:var(--muted);font-size:12.5px;margin-bottom:12px;}
+  .score-big{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:600;color:var(--cyan);margin:6px 0 14px;}
+  .stat-line{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);margin:6px 0;font-family:'JetBrains Mono',monospace;}
+  .stat-line .lbl{width:76px;flex-shrink:0;text-transform:uppercase;letter-spacing:.4px;}
+  .bar-track{flex:1;height:6px;background:#0000;border-radius:4px;background:#1e232c;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--cyan),var(--red));}
+  .stat-val{width:26px;text-align:right;color:var(--text);}
+
+  /* ---------- Ranking view ---------- */
+  .rank-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:26px;}
+  .back-link{
+    font-family:'Rajdhani',sans-serif;font-weight:600;font-size:14px;color:var(--cyan);
+    background:none;border:1px solid var(--border);padding:9px 16px;border-radius:8px;cursor:pointer;
+  }
+  .back-link:hover{border-color:var(--cyan);}
+
+  .podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:30px;}
+  .p-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative;overflow:hidden;}
+  .p-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;}
+  .p-card.g1::before{background:var(--gold);} .p-card.g2::before{background:var(--silver);} .p-card.g3::before{background:var(--bronze);}
+  .p-rank{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:34px;}
+  .p-card.g1 .p-rank{color:var(--gold);} .p-card.g2 .p-rank{color:var(--silver);} .p-card.g3 .p-rank{color:var(--bronze);}
+  .p-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;margin-top:2px;}
+  .p-sub{color:var(--muted);font-size:12px;margin:2px 0 10px;}
+  .p-score{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);}
+
+  .toolbar{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+  input#search{flex:1;min-width:200px;background:var(--panel-alt);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:9px;font-size:14px;}
+  select#sortby{background:var(--panel-alt);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:9px;font-family:'Inter',sans-serif;font-size:14px;}
+
+  table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  thead th{
+    text-align:left;font-family:'Rajdhani',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.5px;
+    text-transform:uppercase;color:var(--muted);padding:14px 16px;border-bottom:1px solid var(--border);
+  }
+  tbody tr{cursor:pointer;border-bottom:1px solid var(--border);transition:.15s;}
+  tbody tr:hover{background:var(--panel-alt);}
+  tbody tr:last-child{border-bottom:none;}
+  td{padding:13px 16px;font-size:14px;}
+  td.rk{font-family:'JetBrains Mono',monospace;color:var(--muted);width:40px;}
+  tr.top1 td.rk{color:var(--gold);} tr.top2 td.rk{color:var(--silver);} tr.top3 td.rk{color:var(--bronze);}
+  td.name{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:15px;}
+  td.sub{color:var(--muted);font-size:12.5px;}
+  td.score{font-family:'JetBrains Mono',monospace;color:var(--cyan);text-align:right;}
+  .caret{color:var(--muted);text-align:right;width:20px;}
+
+  .detail-row td{padding:0;border-bottom:1px solid var(--border);}
+  .detail-inner{padding:18px 24px 22px;background:var(--panel-alt);display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .detail-inner p{margin:0 0 10px;color:var(--muted);font-size:13px;line-height:1.6;}
+  .detail-inner p b{color:var(--text);}
+
+  @media(max-width:640px){
+    .podium{grid-template-columns:1fr;}
+    .compare-row{grid-template-columns:1fr;}
+    .vs{text-align:center;}
+    .detail-inner{grid-template-columns:1fr;}
+    header{padding:14px 16px;}
+    main{padding:28px 14px 60px;}
+  }
+</style>
 </head>
-
 <body>
 
-<nav>
-
-<div class="logo">
-🏎 <span>SportCar IQ</span>
-</div>
-
-<ul>
-
-<li class="active">Analisis Mobil</li>
-
-<li>Ranking</li>
-
-</ul>
-
-</nav>
-
-
-<section class="container">
-
-<h1>Analisis Mobil Sport Berdasarkan Kebutuhan</h1>
-
-<p class="subtitle">
-Masukkan kebutuhanmu lalu pilih dua mobil sport untuk dibandingkan.
-Sistem akan memberikan rekomendasi mobil yang paling sesuai.
-</p>
-
-
-<div class="card">
-
-<label>Kebutuhan Mobil</label>
-
-<input
-type="text"
-placeholder="Contoh : kecepatan tinggi, harian, balap, touring..."
->
-
-<div class="tags">
-
-<span>⚡ Kecepatan</span>
-
-<span>🏁 Tenaga / HP</span>
-
-<span>⛽ Efisiensi</span>
-
-<span>💎 Desain / Mewah</span>
-
-<span>💰 Harga</span>
-
-</div>
-
-
-<div class="compare">
-
-<div>
-
-<label>Mobil A</label>
-
-<select>
-
-<option>Pilih Mobil</option>
-
-<option>Mercedes-AMG GT</option>
-
-<option>Audi R8</option>
-
-<option>Toyota Supra</option>
-
-<option>Jaguar F-Type</option>
-
-<option>Lexus LC500</option>
-
-<option>Maserati MC20</option>
-
-<option>Lotus Emira</option>
-
-<option>Honda NSX</option>
-
-<option>Bugatti Chiron</option>
-
-<option>Ferrari 488 GTB</option>
-
-<option>Chevrolet Corvette C8</option>
-
-<option>Aston Martin Vantage</option>
-
-<option>Alpine A110</option>
-
-<option>BMW M4 Competition</option>
-
-<option>Ford Mustang GT</option>
-
-<option>Dodge Challenger SRT Hellcat</option>
-
-<option>Lamborghini Huracán EVO</option>
-
-<option>McLaren 720S</option>
-
-<option>Porsche 911 Turbo S</option>
-
-<option>Nissan GT-R R35</option>
-
-</select>
-
-</div>
-
-<div class="vs">
-VS
-</div>
-
-<div>
-
-<label>Mobil B</label>
-
-<select>
-
-<option>Pilih Mobil</option>
-
-<option>Mercedes-AMG GT</option>
-
-<option>Audi R8</option>
-
-<option>Toyota Supra</option>
-
-<option>Jaguar F-Type</option>
-
-<option>Lexus LC500</option>
-
-<option>Maserati MC20</option>
-
-<option>Lotus Emira</option>
-
-<option>Honda NSX</option>
-
-<option>Bugatti Chiron</option>
-
-<option>Ferrari 488 GTB</option>
-
-<option>Chevrolet Corvette C8</option>
-
-<option>Aston Martin Vantage</option>
-
-<option>Alpine A110</option>
-
-<option>BMW M4 Competition</option>
-
-<option>Ford Mustang GT</option>
-
-<option>Dodge Challenger SRT Hellcat</option>
-
-<option>Lamborghini Huracán EVO</option>
-
-<option>McLaren 720S</option>
-
-<option>Porsche 911 Turbo S</option>
-
-<option>Nissan GT-R R35</option>
-
-</select>
-
-</div>
-
-</div>
-
-
-<button>Analisis Sekarang →</button>
-
-</div>
-
-</section>
-
-<script src="tes.js"></script>
-
+<header>
+  <div class="logo"><span>Sport</span>Car IQ<span class="dot"></span></div>
+  <nav>
+    <button class="navbtn active" data-view="analisis" onclick="switchView('analisis')">Analisis Mobil</button>
+    <button class="navbtn" data-view="ranking" onclick="switchView('ranking')">Ranking</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ================= ANALISIS VIEW ================= -->
+  <section id="view-analisis" class="view active">
+    <h1>Analisis Mobil Sport Berdasarkan Kebutuhan</h1>
+    <p class="lede">Masukkan kebutuhanmu lalu pilih dua mobil sport untuk dibandingkan. Sistem akan memberikan rekomendasi mobil yang paling sesuai.</p>
+
+    <div class="panel">
+      <label class="field-label">Kebutuhan Mobil</label>
+      <textarea id="kebutuhan" placeholder="Contoh : kecepatan tinggi, harian, balap, touring..."></textarea>
+
+      <div class="tags">
+        <div class="tag on" data-key="kecepatan">⚡ Kecepatan</div>
+        <div class="tag on" data-key="hp">🔧 Tenaga / HP</div>
+        <div class="tag" data-key="efisiensi">⛽ Efisiensi</div>
+        <div class="tag" data-key="desain">💎 Desain / Mewah</div>
+        <div class="tag" data-key="harga">💰 Harga</div>
+      </div>
+
+      <div class="compare-row">
+        <select id="car1" class="carsel"></select>
+        <div class="vs">VS</div>
+        <select id="car2" class="carsel"></select>
+      </div>
+
+      <button class="analisis-btn" onclick="runAnalisis()">Analisis Mobil</button>
+
+      <div id="result"></div>
+    </div>
+  </section>
+
+  <!-- ================= RANKING VIEW ================= -->
+  <section id="view-ranking" class="view">
+    <div class="rank-header">
+      <div>
+        <h1 style="margin-bottom:4px;">Ranking Mobil Sport</h1>
+        <p class="lede" style="margin:0;">Peringkat 20 mobil sport berdasarkan metode ORESTE, dihitung dari 5 kriteria: harga, kecepatan, tenaga, efisiensi, dan desain.</p>
+      </div>
+      <button class="back-link" onclick="switchView('analisis')">← Kembali ke Analisis</button>
+    </div>
+
+    <div class="podium" id="podium"></div>
+
+    <div class="toolbar">
+      <input id="search" type="text" placeholder="Cari nama mobil, merek, atau negara...">
+      <select id="sortby">
+        <option value="ranking">Urut: Ranking ORESTE</option>
+        <option value="nilaiOreste">Urut: Nilai ORESTE</option>
+        <option value="kecepatan">Urut: Kecepatan</option>
+        <option value="hp">Urut: Tenaga / HP</option>
+        <option value="efisiensi">Urut: Efisiensi</option>
+        <option value="desain">Urut: Desain</option>
+        <option value="harga">Urut: Harga</option>
+        <option value="nama">Urut: Nama (A-Z)</option>
+      </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>#</th><th>Mobil</th><th>Merek / Negara</th><th style="text-align:right;">Nilai ORESTE</th><th></th></tr>
+      </thead>
+      <tbody id="rankBody"></tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+/* ===== Data dari Data_Sport_Cars_ORESTE.xlsx (sheet Alternatif + Penilaian + Ranking, digabung) ===== */
+const CARS = [
+  {kode:"A09",nama:"Bugatti Chiron",merek:"Bugatti",negara:"Prancis",mesin:"8.0L W16",deskripsi:"Hypercar",harga:89,kecepatan:94,hp:94,efisiensi:79,desain:86,ranking:1,nilaiOreste:442},
+  {kode:"A19",nama:"Porsche 911 Turbo S",merek:"Porsche",negara:"Jerman",mesin:"3.8L Twin Turbo",deskripsi:"Ikonik",harga:89,kecepatan:92,hp:94,efisiensi:79,desain:88,ranking:2,nilaiOreste:442},
+  {kode:"A08",nama:"Honda NSX",merek:"Honda",negara:"Jepang",mesin:"3.5L Hybrid",deskripsi:"Hybrid sport",harga:88,kecepatan:95,hp:93,efisiensi:78,desain:85,ranking:3,nilaiOreste:439},
+  {kode:"A18",nama:"McLaren 720S",merek:"McLaren",negara:"Inggris",mesin:"4.0L V8",deskripsi:"Supercar",harga:88,kecepatan:93,hp:93,efisiensi:78,desain:87,ranking:4,nilaiOreste:439},
+  {kode:"A07",nama:"Lotus Emira",merek:"Lotus",negara:"Inggris",mesin:"3.5L V6",deskripsi:"Handling presisi",harga:87,kecepatan:88,hp:92,efisiensi:77,desain:92,ranking:5,nilaiOreste:436},
+  {kode:"A17",nama:"Lamborghini Huracán EVO",merek:"Lamborghini",negara:"Italia",mesin:"5.2L V10",deskripsi:"Eksotis",harga:87,kecepatan:94,hp:92,efisiensi:77,desain:86,ranking:6,nilaiOreste:436},
+  {kode:"A06",nama:"Maserati MC20",merek:"Maserati",negara:"Italia",mesin:"3.0L V6",deskripsi:"Supercar Italia",harga:86,kecepatan:89,hp:91,efisiensi:76,desain:91,ranking:7,nilaiOreste:433},
+  {kode:"A16",nama:"Dodge Challenger SRT Hellcat",merek:"Dodge",negara:"USA",mesin:"6.2L Supercharged",deskripsi:"Muscle",harga:86,kecepatan:95,hp:91,efisiensi:76,desain:85,ranking:8,nilaiOreste:433},
+  {kode:"A05",nama:"Lexus LC500",merek:"Lexus",negara:"Jepang",mesin:"5.0L V8",deskripsi:"GT mewah",harga:85,kecepatan:90,hp:90,efisiensi:75,desain:90,ranking:9,nilaiOreste:430},
+  {kode:"A15",nama:"Ford Mustang GT",merek:"Ford",negara:"USA",mesin:"5.0L V8",deskripsi:"Muscle car",harga:85,kecepatan:88,hp:90,efisiensi:75,desain:92,ranking:10,nilaiOreste:430},
+  {kode:"A04",nama:"Jaguar F-Type",merek:"Jaguar",negara:"Inggris",mesin:"5.0L V8",deskripsi:"Coupe premium",harga:84,kecepatan:91,hp:89,efisiensi:74,desain:89,ranking:11,nilaiOreste:427},
+  {kode:"A14",nama:"BMW M4 Competition",merek:"BMW",negara:"Jerman",mesin:"3.0L Twin Turbo",deskripsi:"Sport sedan",harga:84,kecepatan:89,hp:89,efisiensi:74,desain:91,ranking:12,nilaiOreste:427},
+  {kode:"A03",nama:"Toyota Supra",merek:"Toyota",negara:"Jepang",mesin:"3.0L Turbo",deskripsi:"Sport legendaris",harga:83,kecepatan:92,hp:88,efisiensi:73,desain:88,ranking:13,nilaiOreste:424},
+  {kode:"A13",nama:"Alpine A110",merek:"Alpine",negara:"Prancis",mesin:"1.8L Turbo",deskripsi:"Ringan",harga:83,kecepatan:90,hp:88,efisiensi:73,desain:90,ranking:14,nilaiOreste:424},
+  {kode:"A02",nama:"Audi R8",merek:"Audi",negara:"Jerman",mesin:"5.2L V10",deskripsi:"Supercar harian",harga:82,kecepatan:93,hp:87,efisiensi:72,desain:87,ranking:15,nilaiOreste:421},
+  {kode:"A12",nama:"Aston Martin Vantage",merek:"Aston Martin",negara:"Inggris",mesin:"4.0L V8",deskripsi:"Elegan",harga:82,kecepatan:91,hp:87,efisiensi:72,desain:89,ranking:16,nilaiOreste:421},
+  {kode:"A01",nama:"Mercedes-AMG GT",merek:"Mercedes",negara:"Jerman",mesin:"4.0L V8 Twin Turbo",deskripsi:"Coupe performa tinggi",harga:81,kecepatan:94,hp:86,efisiensi:71,desain:86,ranking:17,nilaiOreste:418},
+  {kode:"A11",nama:"Chevrolet Corvette C8",merek:"Chevrolet",negara:"USA",mesin:"6.2L V8",deskripsi:"Mid-engine",harga:81,kecepatan:92,hp:86,efisiensi:71,desain:88,ranking:18,nilaiOreste:418},
+  {kode:"A10",nama:"Ferrari 488 GTB",merek:"Ferrari",negara:"Italia",mesin:"3.9L V8",deskripsi:"Ferrari klasik",harga:80,kecepatan:93,hp:85,efisiensi:70,desain:87,ranking:19,nilaiOreste:415},
+  {kode:"A20",nama:"Nissan GT-R R35",merek:"Nissan",negara:"Jepang",mesin:"3.8L Twin Turbo",deskripsi:"Godzilla",harga:80,kecepatan:91,hp:85,efisiensi:70,desain:89,ranking:20,nilaiOreste:415},
+];
+
+const CRIT_LABEL = {harga:"Harga",kecepatan:"Kecepatan",hp:"Tenaga/HP",efisiensi:"Efisiensi",desain:"Desain"};
+
+/* ---------- View switching ---------- */
+function switchView(v){
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.navbtn').forEach(el=>el.classList.toggle('active', el.dataset.view===v));
+  if(v==='ranking') renderRanking();
+}
+
+/* ---------- Analisis Mobil ---------- */
+function populateSelects(){
+  const c1 = document.getElementById('car1'), c2 = document.getElementById('car2');
+  CARS.forEach((c,i)=>{
+    c1.add(new Option(c.nama, i));
+    c2.add(new Option(c.nama, i));
+  });
+  c2.selectedIndex = 1;
+}
+populateSelects();
+
+document.querySelectorAll('.tag').forEach(t=>{
+  t.addEventListener('click', ()=> t.classList.toggle('on'));
+});
+
+function runAnalisis(){
+  const keys = [...document.querySelectorAll('.tag.on')].map(t=>t.dataset.key);
+  const activeKeys = keys.length ? keys : Object.keys(CRIT_LABEL);
+
+  const i1 = +document.getElementById('car1').value;
+  const i2 = +document.getElementById('car2').value;
+  if(i1 === i2){ alert('Pilih dua mobil yang berbeda untuk dibandingkan.'); return; }
+  const a = CARS[i1], b = CARS[i2];
+
+  const scoreOf = c => activeKeys.reduce((s,k)=>s+c[k],0) / activeKeys.length;
+  const sa = scoreOf(a), sb = scoreOf(b);
+  const winner = sa >= sb ? a : b;
+
+  const cardHTML = (c, score, isWinner) => `
+    <div class="cmp-card ${isWinner?'winner':''}">
+      <div class="cmp-name">${c.nama} ${isWinner? '<span class="badge-win">TERBAIK</span>':''}</div>
+      <div class="cmp-sub">${c.merek} · ${c.negara} · ${c.mesin}</div>
+      <div class="score-big">${score.toFixed(1)}</div>
+      ${activeKeys.map(k=>`
+        <div class="stat-line">
+          <span class="lbl">${CRIT_LABEL[k]}</span>
+          <span class="bar-track"><span class="bar-fill" style="width:${c[k]}%"></span></span>
+          <span class="stat-val">${c[k]}</span>
+        </div>`).join('')}
+    </div>`;
+
+  document.getElementById('result').innerHTML = `
+    <div class="result-head">
+      <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:19px;">Hasil Analisis</span>
+      <span style="color:var(--muted);font-size:13px;">berdasarkan: ${activeKeys.map(k=>CRIT_LABEL[k]).join(', ')}</span>
+    </div>
+    <div class="cmp-grid">
+      ${cardHTML(a, sa, winner===a)}
+      ${cardHTML(b, sb, winner===b)}
+    </div>
+    <p style="color:var(--muted);font-size:13px;margin-top:16px;">
+      <b style="color:var(--text);">${winner.nama}</b> lebih unggul untuk kebutuhan yang dipilih, dengan skor rata-rata
+      <b style="color:var(--cyan);">${Math.max(sa,sb).toFixed(1)}</b> dibanding ${Math.min(sa,sb).toFixed(1)}.
+      Ingin melihat posisinya di antara 20 mobil lain? Buka tab <b style="color:var(--text);">Ranking</b>.
+    </p>`;
+  document.getElementById('result').style.display = 'block';
+}
+
+/* ---------- Ranking ---------- */
+function medalClass(rank){ return rank===1?'top1':rank===2?'top2':rank===3?'top3':''; }
+
+function renderPodium(){
+  const top3 = [...CARS].sort((a,b)=>a.ranking-b.ranking).slice(0,3);
+  document.getElementById('podium').innerHTML = top3.map((c,i)=>`
+    <div class="p-card g${i+1}">
+      <div class="p-rank">#${c.ranking}</div>
+      <div class="p-name">${c.nama}</div>
+      <div class="p-sub">${c.merek} · ${c.negara}</div>
+      <div class="p-score">Nilai ORESTE: ${c.nilaiOreste}</div>
+    </div>`).join('');
+}
+
+function renderRanking(){
+  renderPodium();
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const sortKey = document.getElementById('sortby').value;
+
+  let list = CARS.filter(c =>
+    c.nama.toLowerCase().includes(q) ||
+    c.merek.toLowerCase().includes(q) ||
+    c.negara.toLowerCase().includes(q)
+  );
+
+  list = [...list].sort((a,b)=>{
+    if(sortKey === 'nama') return a.nama.localeCompare(b.nama);
+    if(sortKey === 'ranking') return a.ranking - b.ranking;
+    return b[sortKey] - a[sortKey]; // numeric criteria: descending (higher = better)
+  });
+
+  const body = document.getElementById('rankBody');
+  body.innerHTML = '';
+
+  list.forEach(c=>{
+    const row = document.createElement('tr');
+    row.className = medalClass(c.ranking);
+    row.innerHTML = `
+      <td class="rk">${c.ranking}</td>
+      <td class="name">${c.nama}</td>
+      <td class="sub">${c.merek} · ${c.negara}</td>
+      <td class="score">${c.nilaiOreste}</td>
+      <td class="caret">▾</td>`;
+
+    const detail = document.createElement('tr');
+    detail.className = 'detail-row';
+    detail.style.display = 'none';
+    detail.innerHTML = `
+      <td colspan="5">
+        <div class="detail-inner">
+          <div>
+            <p><b>Mesin:</b> ${c.mesin}</p>
+            <p><b>Deskripsi:</b> ${c.deskripsi}</p>
+            <p><b>Kode Alternatif:</b> ${c.kode}</p>
+          </div>
+          <div>
+            ${Object.keys(CRIT_LABEL).map(k=>`
+              <div class="stat-line">
+                <span class="lbl">${CRIT_LABEL[k]}</span>
+                <span class="bar-track"><span class="bar-fill" style="width:${c[k]}%"></span></span>
+                <span class="stat-val">${c[k]}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+      </td>`;
+
+    row.addEventListener('click', ()=>{
+      detail.style.display = detail.style.display === 'none' ? 'table-row' : 'none';
+    });
+
+    body.appendChild(row);
+    body.appendChild(detail);
+  });
+}
+
+document.getElementById('search').addEventListener('input', renderRanking);
+document.getElementById('sortby').addEventListener('change', renderRanking);
+</script>
 </body>
 </html>
